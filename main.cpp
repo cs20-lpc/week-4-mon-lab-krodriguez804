@@ -1,22 +1,42 @@
+// Krystle Dao Week 4 Monday Lab
+
 #include "LinkedList.hpp"
 #include <string>
 
 int main() {
     // call the constructor
-    LinkedList<string> myList;
+    LinkedList<char> myList;
 
     // add elements to the list
-    myList.append("Heart");
-    myList.insert(0, "Your");
-    myList.insert(0, "May");
+    myList.append('A');    
+    myList.insert(0, 'B');   
+    myList.insert(0, 'C');
+    cout << "Insert test: " << myList;
+
+    myList.remove(1);
+    cout << "Remove test: " << myList;
+
+    LinkedList<char> copyList(myList);
+    cout << "Copy constructor test: " << copyList;
+
+    LinkedList<char> copyList1;
+
+    copyList1 = myList;
+
+    cout << "Assignment operator test: " << copyList1;
+    cout << "Original list: " << myList;
+    cout << "Copy constructor list: " << copyList;
 
     // try replacing as an invalid operation
+
+    /*
     try {
         myList.replace(-3, "?");
     }
     catch (string& e) {
         cerr << e << endl;
     }
+    
 
     // add another element
     myList.append("Citrus");
@@ -97,4 +117,5 @@ int main() {
 
     // terminate
     return 0;
+*/
 }

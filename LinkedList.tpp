@@ -57,6 +57,24 @@ void LinkedList<T>::clear() {
 template <typename T>
 void LinkedList<T>::copy(const LinkedList<T>& copyObj) {
     // TODO
+    if (copyObj.head == nullptr) {
+        head = nullptr;
+        this->length = 0;
+        return;
+    }
+
+    head = new Node(copyObj.head->value);
+
+    Node* currOther = copyObj.head->next;
+    Node* currThis = head;
+
+    while (currOther != nullptr) {
+        currThis->next = new Node(currOther->value);
+        currThis = currThis->next;
+        currOther = currOther->next;
+    }
+
+    this->length = copyObj.length;
 }
 
 template <typename T>
@@ -82,6 +100,29 @@ int LinkedList<T>::getLength() const {
 template <typename T>
 void LinkedList<T>::insert(int position, const T& elem) {
     // TODO
+    if (position < 0 || position >= this->length) {
+        throw string("insert: error, position out of bounds");
+    }
+
+    Node* newNode = new Node(elem);
+
+    Node* curr = head;
+    Node* prev = nullptr;
+
+    for (int i = 0; i < position; ++i) {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    if(prev == nullptr) {
+        newNode->next = head;
+        head = newNode;
+    }
+    else {
+        newNode->next = curr;
+        prev->next = newNode;
+    }
+    this->length++;
 }
 
 template <typename T>
@@ -92,6 +133,27 @@ bool LinkedList<T>::isEmpty() const {
 template <typename T>
 void LinkedList<T>::remove(int position) {
     // TODO
+    if (position < 0 || position >= this->length) {
+        throw string("remove: error, position out of bounds");
+    }
+
+    Node* curr = head;
+    Node* prev = nullptr;
+
+    for(int i = 0; i < position; ++i) {
+        prev = curr;
+        curr = curr->next;
+        }
+
+    if (prev == nullptr) {
+        head = curr->next;
+    }
+    else {
+        prev->next = curr->next;
+    }
+
+    delete curr;
+    this->length--;    
 }
 
 template <typename T>
@@ -128,3 +190,5 @@ ostream& operator<<(ostream& outStream, const LinkedList<T>& myObj) {
 
     return outStream;
 }
+
+
